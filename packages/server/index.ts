@@ -9,6 +9,11 @@ app.get("/", (req: Request, res: Response) => {
   res.send("key: " + process.env.OPENAI_API_KEY);
 });
 
+app.get("/api/hello", (req: Request, res: Response) => {
+  //   res.send("Hello via Express!");
+  res.json({ message: "Hello EMMA!" });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
