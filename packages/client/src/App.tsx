@@ -11,7 +11,7 @@ function App() {
   console.log(message);
   return (
     <>
-      <p>{message}</p>
+      <p className="bg-black text-white p-5">{message}</p>
     </>
   );
 }

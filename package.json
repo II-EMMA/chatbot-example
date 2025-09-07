@@ -3,6 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun run index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.3"
@@ -14,6 +17,8 @@
     "packages/*"
   ],
   "dependencies": {
-    "express": "^5.1.0"
+    "@tailwindcss/vite": "^4.1.13",
+    "express": "^5.1.0",
+    "tailwindcss": "^4.1.13"
   }
 }
