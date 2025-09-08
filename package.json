@@ -1,27 +1,29 @@
 {
-  "name": "my-app",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run index.ts",
-    "prepare": "husky"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/express": "^5.0.3",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.6"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "express": "^5.1.0",
-    "tailwindcss": "^4.1.13"
-  }
+   "name": "my-app",
+   "module": "index.ts",
+   "type": "module",
+   "private": true,
+   "scripts": {
+      "dev": "bun run index.ts",
+      "format": "prettier --write .",
+      "prepare": "husky"
+   },
+   "devDependencies": {
+      "@types/bun": "latest",
+      "@types/express": "^5.0.3",
+      "husky": "^9.1.7",
+      "lint-staged": "^16.1.6",
+      "prettier": "^3.6.2"
+   },
+   "peerDependencies": {
+      "typescript": "^5"
+   },
+   "workspaces": [
+      "packages/*"
+   ],
+   "dependencies": {
+      "@tailwindcss/vite": "^4.1.13",
+      "express": "^5.1.0",
+      "tailwindcss": "^4.1.13"
+   }
 }
