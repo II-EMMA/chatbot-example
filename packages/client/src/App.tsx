@@ -29,7 +29,7 @@ export default function App() {
    const [messages, setMessages] = useState<Message[]>([]);
    const [loading, setLoading] = useState(false);
    const [conversationId, setConversationId] = useState<string | null>(null);
-   const [error, setError] = useState<string | null>(null);
+   // const [error, setError] = useState<string | null>(null);
 
    const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +38,6 @@ export default function App() {
    }, [messages]);
 
    async function sendPrompt() {
-      setError(null);
       setLoading(true);
 
       // Always show user message
