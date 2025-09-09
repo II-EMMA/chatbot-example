@@ -76,7 +76,15 @@ export default function App() {
             body: JSON.stringify({ prompt, conversationId }),
          });
 
-         const data = await res.json();
+         const text = await res.text();
+
+         let data;
+         try {
+            data = JSON.parse(text);
+         } catch {
+            throw new Error("Invalid JSON response");
+         }
+
          if (!res.ok) throw new Error(data.error || "Unknown error");
 
          if (!conversationId && data.conversationId) {
@@ -96,11 +104,11 @@ export default function App() {
             }
             return updated;
          });
-         setPrompt("");
 
+         setPrompt("");
          // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-         console.error(err);
+         console.error("Fetch error:", err.message);
 
          setMessages((prev) => {
             const updated = [...prev];
@@ -110,7 +118,7 @@ export default function App() {
             if (lastIndex !== -1) {
                updated[lastIndex] = {
                   role: "assistant",
-                  content: `Something went wrong, please try again later.`,
+                  content: `Error: ${err.message}`,
                };
             }
             return updated;

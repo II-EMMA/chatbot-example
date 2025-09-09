@@ -16,21 +16,25 @@ export default async function handler(req: Request): Promise<Response> {
 
       const parsed = schema.safeParse(body);
       if (!parsed.success) {
-         return new Response("Invalid input", { status: 400 });
+         return new Response(JSON.stringify({ error: "Invalid input" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+         });
       }
 
       const { prompt, conversationId } = parsed.data;
-
-      // Simulate a response (replace with your actual logic)
       const reply = `Echo: ${prompt}`;
       const id = conversationId ?? uuidv4();
 
-      return new Response(JSON.stringify({ reply, id }), {
+      return new Response(JSON.stringify({ reply, conversationId: id }), {
          status: 200,
          headers: { "Content-Type": "application/json" },
       });
    } catch (err) {
       console.error("API error:", err);
-      return new Response("Internal Server Error", { status: 500 });
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+         status: 500,
+         headers: { "Content-Type": "application/json" },
+      });
    }
 }
