@@ -1,8 +1,6 @@
 {
-   "rewrites": [
-      {
-         "source": "/api/chat",
-         "destination": "/packages/server/index.ts"
-      }
-   ]
+   "builds": [
+      { "src": "packages/client/package.json", "use": "@vercel/static-build" }
+   ],
+   "routes": [{ "src": "/api/chat", "dest": "packages/client/api/chat.ts" }]
 }
