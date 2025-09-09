@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
+export const runtime = "edge";
+console.log("Function invoked");
 
 const models = [
    "gpt-5-mini",
