@@ -4,27 +4,12 @@ import { fetch } from "bun";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import * as Sentry from "@sentry/bun";
-// import fetch from "node-fetch";
 
 const app = express();
 app.use(express.json());
 // const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const port = 3000;
-
-app.get("/", (req: Request, res: Response) => {
-   //   res.send("Hello via Express!");
-   res.send("key: " + process.env.OPENAI_API_KEY);
-});
-
-app.get("/api/hello", (req: Request, res: Response) => {
-   //   res.send("Hello via Express!");
-   res.json({ message: "Hello EMMA!" });
-});
-
-app.listen(port, () => {
-   console.log(`Example app listening on port ${port}`);
-});
 
 // app.post("/api/chat", async (req, res) => {
 //    const { prompt } = req.body;
