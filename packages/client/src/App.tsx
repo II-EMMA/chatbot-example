@@ -30,6 +30,9 @@ export default function App() {
    const [loading, setLoading] = useState(false);
    const [conversationId, setConversationId] = useState<string | null>(null);
    // const [error, setError] = useState<string | null>(null);
+   const baseURL = import.meta.env.PROD
+      ? "https://https://chatbot-example-demo.vercel.app/api"
+      : "http://localhost:3000/api";
 
    const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,7 +73,7 @@ export default function App() {
       }
 
       try {
-         const res = await fetch("/api/chat", {
+         const res = await fetch(`${baseURL}/chat`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt, conversationId }),
