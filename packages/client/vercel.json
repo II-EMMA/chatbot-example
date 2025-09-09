@@ -2,7 +2,7 @@
    "rewrites": [
       {
          "source": "/api/chat",
-         "destination": "/server/index.ts"
+         "destination": "/packages/server/index.ts"
       }
    ]
 }
