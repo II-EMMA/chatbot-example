@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import express, { response } from "express";
+import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import * as Sentry from "@sentry/bun";
@@ -19,17 +19,28 @@ const blockedOrigins = [
 ];
 
 // response.header("Access-Control-Allow-Credentials", "true");
-
 app.use(
    cors({
       origin: (origin, callback) => {
-         if (!origin || blockedOrigins.includes(origin)) {
-            callback(new Error("Blocked by CORS"));
-         } else {
-            callback(null, true);
+         const blockedOrigins = [
+            "https://malicious-site.com",
+            "https://spammy-clone.vercel.app",
+         ];
+
+         // Allow requests with no origin (e.g. browser direct, Postman)
+         if (!origin) {
+            return callback(null, true);
          }
+
+         // Block known bad origins
+         if (blockedOrigins.includes(origin)) {
+            return callback(new Error("Blocked by CORS"));
+         }
+
+         // Allow everything else
+         return callback(null, origin); // Echo back the origin
       },
-      credentials: true, // 👈 required for cookies/auth headers
+      credentials: true,
       methods: ["GET", "POST", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
    })

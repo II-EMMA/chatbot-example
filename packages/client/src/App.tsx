@@ -29,9 +29,10 @@ export default function App() {
    const [messages, setMessages] = useState<Message[]>([]);
    const [loading, setLoading] = useState(false);
    const [conversationId, setConversationId] = useState<string | null>(null);
-   const baseURL = import.meta.env.PROD
-      ? "https://chatbot-example-demo.vercel.app/api"
-      : "http://localhost:3000/api";
+   const isLocal = window.location.hostname === "localhost";
+   const baseURL = isLocal
+      ? "http://localhost:3000/api"
+      : "https://chatbot-example-demo.vercel.app/api"; // Replace with your actual backend domain
 
    // console.log(baseURL);
    // const baseURL = "api";
@@ -79,7 +80,6 @@ export default function App() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt, conversationId }),
-            credentials: "include",
          });
 
          const text = await res.text();
