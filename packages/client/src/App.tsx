@@ -30,8 +30,9 @@ export default function App() {
    const [loading, setLoading] = useState(false);
    const [conversationId, setConversationId] = useState<string | null>(null);
    const baseURL = import.meta.env.PROD
-      ? "https://https://chatbot-example-demo.vercel.app/api"
+      ? "https://chatbot-example-demo.vercel.app/api"
       : "http://localhost:3000/api";
+
    // console.log(baseURL);
    // const baseURL = "api";
 
@@ -78,6 +79,7 @@ export default function App() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt, conversationId }),
+            credentials: "include",
          });
 
          const text = await res.text();

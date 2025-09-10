@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import express from "express";
+import express, { response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import * as Sentry from "@sentry/bun";
@@ -13,9 +13,23 @@ app.listen(port, () => {
    console.log(`Server listening on port ${port}`);
 });
 
+const blockedOrigins = [
+   "https://malicious-site.com",
+   "https://spammy-clone.vercel.app",
+];
+
+// response.header("Access-Control-Allow-Credentials", "true");
+
 app.use(
    cors({
-      origin: "http://localhost:5173",
+      origin: (origin, callback) => {
+         if (!origin || blockedOrigins.includes(origin)) {
+            callback(new Error("Blocked by CORS"));
+         } else {
+            callback(null, true);
+         }
+      },
+      credentials: true, // 👈 required for cookies/auth headers
       methods: ["GET", "POST", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
    })
