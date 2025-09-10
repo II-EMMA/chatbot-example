@@ -29,10 +29,11 @@ export default function App() {
    const [messages, setMessages] = useState<Message[]>([]);
    const [loading, setLoading] = useState(false);
    const [conversationId, setConversationId] = useState<string | null>(null);
-   // const [error, setError] = useState<string | null>(null);
    const baseURL = import.meta.env.PROD
       ? "https://https://chatbot-example-demo.vercel.app/api"
       : "http://localhost:3000/api";
+   // console.log(baseURL);
+   // const baseURL = "api";
 
    const scrollRef = useRef<HTMLDivElement | null>(null);
 

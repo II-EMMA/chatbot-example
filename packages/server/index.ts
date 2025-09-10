@@ -1,46 +1,25 @@
 import type { Request, Response } from "express";
 import express from "express";
-import { fetch } from "bun";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import * as Sentry from "@sentry/bun";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
-// const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const port = 3000;
+app.listen(port, () => {
+   console.log(`Server listening on port ${port}`);
+});
 
-// app.post("/api/chat", async (req, res) => {
-//    const { prompt } = req.body;
-
-//    if (!prompt || typeof prompt !== "string") {
-//       return res.status(400).json({ error: "Invalid prompt" });
-//    }
-
-//    try {
-//       const response = await fetch(
-//          "https://api.algion.dev/v1/chat/completions",
-//          {
-//             method: "POST",
-//             headers: {
-//                "Content-Type": "application/json",
-//                Authorization: "Bearer 123123", // Public key, no signup needed
-//             },
-//             body: JSON.stringify({
-//                model: "gpt-4.1",
-//                messages: [{ role: "user", content: prompt }],
-//             }),
-//          }
-//       );
-
-//       const data :any = await response.json();
-//       const reply = data.choices?.[0]?.message?.content || "No response";
-//       res.json({ reply });
-//    } catch (err) {
-//       res.status(500).json({ error: "Server error", details: String(err) });
-//    }
-// });
+app.use(
+   cors({
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+   })
+);
 
 // const models = [
 //   "gpt-4o",                // Most advanced: multimodal, fast, high-quality
@@ -73,46 +52,6 @@ const port = 3000;
 //    "gpt-4-0125-preview",
 //    "gpt-3.5-turbo",
 // ];
-
-// let lastResponse: string | null = null;
-
-// async function tryModel(prompt: string, model: string) {
-//    const res = await fetch("https://api.algion.dev/v1/chat/completions", {
-//       method: "POST",
-//       headers: {
-//          "Content-Type": "application/json",
-//          Authorization: "Bearer 123123",
-//       },
-//       body: JSON.stringify({
-//          model,
-//          temperature: 0.2,
-//          max_tokens: 100,
-//          messages: [{ role: "user", content: prompt }],
-//       }),
-//    });
-
-//    if (!res.ok) throw new Error(`Model ${model} failed`);
-//    const data: any = await res.json();
-//    return data.choices?.[0]?.message?.content || null;
-// }
-
-// app.post("/api/chat", async (req, res) => {
-//    const { prompt } = req.body;
-//    if (!prompt || typeof prompt !== "string") {
-//       return res.status(400).json({ error: "Invalid prompt" });
-//    }
-
-//    for (const model of models) {
-//       try {
-//          const reply = await tryModel(prompt, model);
-//          if (reply) return res.json({ reply, model });
-//       } catch (err: any) {
-//          console.warn(`Model ${model} failed:`, err.message);
-//       }
-//    }
-
-//    res.status(500).json({ error: "All models failed. Try again later." });
-// });
 
 // In-memory conversation store
 

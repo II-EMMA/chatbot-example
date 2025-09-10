@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/uuid": "^10.0.0",
     "openai": "^5.19.1",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@sentry/bun": "^10.11.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0"
   }

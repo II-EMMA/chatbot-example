@@ -1,16 +1,16 @@
 {
-   "builds": [
-      {
-         "src": "./index.ts",
-         "use": "@vercel/node",
-         "config": { "includeFiles": ["./dist/**"] }
-      }
-   ],
    "version": 2,
+   "builds": [{ "src": "dist/index.js", "use": "@vercel/node" }],
    "routes": [
       {
          "src": "/(.*)",
-         "dest": "index.ts"
+         "dest": "/dist/index.js",
+         "methods": ["GET", "POST", "OPTIONS"],
+         "headers": {
+            "Access-Control-Allow-Origin": "https://chatbot-example-demo.vercel.app",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+         }
       }
    ]
 }
